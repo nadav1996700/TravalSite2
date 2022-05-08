@@ -1,0 +1,27 @@
+{
+  "name": "travalsite2",
+  "version": "1.0.0",
+  "description": "Travel Site is a website that allow you to present your top travel destinations",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js -e hbs,js"
+  },
+  "author": "Nadav Cohen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "hbs": "^4.2.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.2",
+    "multer": "^1.4.4"
+  },"devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nadav1996700/TravelSite.git"
+  },
+  "homepage": "https://github.com/nadav1996700/TravelSite#readme"
+}
