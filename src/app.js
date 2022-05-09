@@ -29,11 +29,61 @@ app.use(express.static(publicPath));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-    res.render("index", { title: "Index", active: "index" });
-  });
+app.get("", (req, res) => {
+  res.render("index", { title: "Index", active: "index" });
+});
 
+app.get("/about", (req, res) => {
+  res.render("about", { title: "About", active: "about" });
+});
+
+app.get("/addLocation", (req, res) => {
+  res.render("addLocation", { title: "Add Location", active: "addLocation" });
+});
+
+app.get("/remove", (req, res) => {
+  const loc = req.query.loc;
+  const src = req.query.src;
+  locations.removeLocation(loc);
+  unlink("public/" + src, (err) => {
+    if (err) throw err;
+  });
+  setTimeout(() => {
+    res.redirect("/");
+  }, 1000);
+});
+
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404 Page Not Found!",
+  });
+});
+
+app.post("/location", upload.single("fileName"), (req, res, next) => {
+  const { location, description } = req.body;
+  const { path } = req.file;
+  const src = path.replace("public", "");
+  const removable = true;
+  const obj = {
+    location,
+    description,
+    src,
+    removable,
+  };
+  locations.addLocation(location, obj);
+  const data = new Location(obj);
+  data.save().catch((err) => {
+    if (err) throw err;
+  });
+  setTimeout(() => {
+    res.redirect("/");
+  }, 1000);
+});
+
+hbs.registerHelper("isEqual", function (s1, s2) {
+  return s1 === s2;
+});
 
 app.listen(port, () => {
-    console.log("Server is up on port " + port);
-  });
+  console.log("Server is up on port " + port);
+});

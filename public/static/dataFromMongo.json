@@ -1,0 +1,14 @@
+[
+    {
+        "location": "Taj Mahal",
+        "description": "amazing site with interesting people",
+        "src": "\\img\\2a6fe95de230ee91d88b6a74b4a6cbd5",
+        "removable": true
+    },
+    {
+        "location": "Pizza Tower",
+        "description": "it looks interesting place",
+        "src": "\\img\\c36c2d88bd1ea3bb5a71c9e6ba18538e",
+        "removable": true
+    }
+]

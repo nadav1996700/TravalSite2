@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/earth.png" type="image/png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Travel Site | {{title}}</title>
+</head>
+
+<body>
+    {{>header}}
+    <main>
+        <form action="/location" method="post" enctype="multipart/form-data" class="addLocation">
+            <div class="form-row">
+                <input type="text" placeholder="Location Name" name="location" required>
+            </div>
+            <div class="form-row" style="flex-direction: row;">
+                <input type="file" name="fileName" id="fileName" class="inputfile" accept="image/*"
+                    onchange="validateFileType()" required />
+                <img id="imgID" src="Error.src" onerror="this.style.display='none'" width="45" height="45">
+            </div>
+            <div class="form-row">
+                <textarea name="description" id="" cols="30" rows="10" placeholder="Why Its Worth Going There?"
+                    required></textarea>
+            </div>
+            <div class="form-row">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </main>
+    {{>footer}}
+    <script src="/js/Form.js"></script>
+</body>
+
+</html>
