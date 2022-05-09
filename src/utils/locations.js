@@ -1,5 +1,4 @@
 const fs = require("fs");
-const chalk = require("chalk");
 
 const addLocation = (location, body) => {
   const locations = loadLocations();
@@ -9,9 +8,9 @@ const addLocation = (location, body) => {
   if (!duplicateLocation) {
     locations.push(body);
     saveLocations(locations);
-    console.log(chalk.green.inverse("New location added!"));
+    console.log("New location added!");
   } else {
-    console.log(chalk.red.inverse("location exist!"));
+    console.log("location already exist!");
   }
 };
 
@@ -20,10 +19,10 @@ const removeLocation = (location) => {
   const locationsToKeep = locations.filter((l) => l.location !== location);
 
   if (locations.length > locationsToKeep.length) {
-    console.log(chalk.green.inverse("Location removed!"));
+    console.log("Location removed!");
     saveLocations(locationsToKeep);
   } else {
-    console.log(chalk.red.inverse("Location not found!"));
+    console.log("Location not found!");
   }
 };
 

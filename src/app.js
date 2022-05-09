@@ -33,10 +33,6 @@ app.get("", (req, res) => {
   res.render("index", { title: "Index", active: "index" });
 });
 
-app.get("/about", (req, res) => {
-  res.render("about", { title: "About", active: "about" });
-});
-
 app.get("/addLocation", (req, res) => {
   res.render("addLocation", { title: "Add Location", active: "addLocation" });
 });
@@ -53,22 +49,14 @@ app.get("/remove", (req, res) => {
   }, 1000);
 });
 
-app.get("*", (req, res) => {
-  res.render("404", {
-    title: "404 Page Not Found!",
-  });
-});
-
 app.post("/location", upload.single("fileName"), (req, res, next) => {
   const { location, description } = req.body;
   const { path } = req.file;
   const src = path.replace("public", "");
-  const removable = true;
   const obj = {
     location,
     description,
     src,
-    removable,
   };
   locations.addLocation(location, obj);
   const data = new Location(obj);

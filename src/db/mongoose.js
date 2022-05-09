@@ -1,19 +1,17 @@
 const mongoose = require("mongoose");
 
+// local mongo db
 mongoose.connect("mongodb://127.0.0.1:27017/locations", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
+// check that mongo start succesfully
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully to MongoDB");
 });
-
-// connection string mongoDB 
-
-// mongodb+srv://nadav1996700:<password>@cluster0.64ph3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 const Location = mongoose.model("Location", {
   location: {
@@ -26,10 +24,6 @@ const Location = mongoose.model("Location", {
   },
   src: {
     type: String,
-    required: true,
-  },
-  removable: {
-    type: Boolean,
     required: true,
   },
 });

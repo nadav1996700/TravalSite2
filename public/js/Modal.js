@@ -2,18 +2,13 @@ const container = document.getElementById("container");
 const modalBody = document.querySelector(".modal-body");
 
 Promise.all([
-  fetch("/static/locations.json")
-    .then((data) => data.json())
-    .catch((err) => false),
   fetch("/static/dataFromMongo.json")
     .then((data) => data.json())
     .catch((err) => false),
 ]).then((data) => {
-  if (!data[1]) {
-    data[1] = undefined;
-  }
   runModalApp(data);
 });
+
 function buildLocationCards(locations) {
   let element;
   Object.values(locations).forEach((v) => {
@@ -23,11 +18,8 @@ function buildLocationCards(locations) {
                       <p>${v.location}</p>
                   </div>
                   <div class="modal-buttons">
-                    <button class="open-modal" id="${v.location}">view</button>
-                    <button class="remove-card" id="${v.location}" 
-                      style="display:${
-                        v.removable ? "block" : "none"
-                      }">remove</button>
+                    <button class="open-modal" id="${v.location}">watch</button>
+                    <button class="remove-card" id="${v.location}" style="display:block">delete</button>
                   </div>
               </div>`;
     container.insertAdjacentHTML("beforeend", element);
@@ -35,10 +27,8 @@ function buildLocationCards(locations) {
 }
 
 function runModalApp(data) {
-  // Static Data
-  buildLocationCards(data[0]);
   // MongoDB Data
-  data[1] !== undefined ? buildLocationCards(data[1]) : "";
+  buildLocationCards(data[0]);
 
   // Get the modal
   const modal = document.querySelector(".modal");
@@ -90,14 +80,6 @@ function runModalApp(data) {
           return;
         }
       }
-      if (data[1] !== undefined) {
-        if (data[1][v] !== undefined) {
-          if (data[1][v].location === btnID) {
-            description = data[1][v].description;
-            return;
-          }
-        }
-      }
     });
     return "";
   }
@@ -110,14 +92,6 @@ function runModalApp(data) {
           return;
         }
       }
-      if (data[1] !== undefined) {
-        if (data[1][v] !== undefined) {
-          if (data[1][v].location === btnID) {
-            src = data[1][v].src;
-            return;
-          }
-        }
-      }
     });
     return "";
   }
@@ -128,8 +102,7 @@ function runModalApp(data) {
   remove.forEach((el) => {
     const location = el.id;
     el.onclick = () => {
-      getSRC(data[1], location);
-      console.log(src);
+      getSRC(data[0], location);
       fetch(`/remove?loc=${location}&src=${src}`);
       window.location.reload();
     };
